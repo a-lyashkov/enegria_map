@@ -21,9 +21,22 @@ int main(int argc, char *argv[])
 
     printf("port open OK, start process\n");
 
-    if (map_epprom_read(port) < 0)
-	    printf("error reading from port\n"); 
+    if (map_epprom_read(port) < 0) {
+	    printf("error reading from port\n");
+	    goto end;
+    }
 
     map_hw_info(&info);
+
+    printf("Map INFO\n");
+    printf("\tdevice serial %#0x\n", info.serial);
+    printf("\tdevice HW revision %d\n", info.hw_ver);
+    printf("\tdevice FW revission %d.%d\n", 
+	MAP_FW_MAJOR(info.fw_ver), MAP_FW_MINOR(info.fw_ver));
+    printf("\tdevice power %s\n", map_pow_str(info.pow));
+    printf("\tdevice battery %s\n", map_bat_str(info.bat));
+
+
+end:
     close(port);
 }
