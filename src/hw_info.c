@@ -3,6 +3,7 @@
 #include <errno.h>
 
 #include "serial.h"
+#include "map_sin.h"
 
 static char *serial_port="/dev/ttyUSB0";
 const unsigned int serial_speed = 19200;
@@ -19,6 +20,8 @@ int main(int argc, char *argv[])
 
     printf("port open OK, start process\n");
 
+    if (map_epprom_read(port) < 0)
+	    printf("error reading from port\n"); 
 
     close(port);
 }
