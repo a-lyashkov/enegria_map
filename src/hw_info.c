@@ -11,6 +11,7 @@ const unsigned int serial_speed = 19200;
 int main(int argc, char *argv[])
 {
     int port;
+    struct map_hw_info info;
 
     port = port_open(serial_port, serial_speed);
     if (port < 0) {
@@ -23,5 +24,6 @@ int main(int argc, char *argv[])
     if (map_epprom_read(port) < 0)
 	    printf("error reading from port\n"); 
 
+    map_hw_info(&info);
     close(port);
 }

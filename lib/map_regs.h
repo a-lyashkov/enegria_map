@@ -6,6 +6,7 @@
 #define EPROM_SIZE	0x3FF
 
 #define RAM_START	0x400
+/* XXX should from ROM */
 #define RAM_SIZE	0x3FF
 
 #endif
