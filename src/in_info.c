@@ -25,5 +25,11 @@ int main(int argc, char *argv[])
 		exit(3);
 	}
 
+	printf("MAP current input\n");
+	printf("\tInput Voltage %u (V)\n", info.uac);
+	printf("\tInput current %u (A)\n", info.i);
+	printf("\tInput power %u (W)\n", info.pow);
+
+
 	return 0;
 }

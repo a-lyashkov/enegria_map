@@ -17,4 +17,9 @@ bool epprom_valid; // set this to false to refresh ROM
 
 extern int map_epprom_read(int fd);
 
+extern uint8_t *map_ram;
+bool ram_valid; // set this to false to refresh ROM
+
+extern int map_ram_read(int fd);
+
 #endif

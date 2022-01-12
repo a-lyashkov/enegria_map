@@ -9,8 +9,9 @@
 #include <stdbool.h>
 
 struct map_in_info {
-	uint16_t	uac;
-	uint32_t	pow;
+	uint16_t	uac;  // V
+	uint8_t		i;    // A
+	uint32_t	pow;  // power in W
 	uint8_t		link; // input link
 };
 

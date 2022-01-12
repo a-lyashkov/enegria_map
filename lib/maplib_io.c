@@ -282,3 +282,28 @@ int map_epprom_read(int fd)
 
 	return 0;
 }
+
+uint8_t *map_ram;
+bool ram_valid = false;
+
+int map_ram_read(int fd)
+{
+	int rc = 0;
+
+	if (ram_valid)
+		return 0;
+
+	if (map_ram == NULL) {
+		map_ram = malloc(RAM_SIZE);
+	}
+	if (map_ram == NULL)
+		return -ENOMEM;
+
+	rc = map_io_read(fd, map_ram, RAM_START, RAM_SIZE);
+	if (rc < 0)
+		return rc;
+
+	ram_valid = true;
+
+	return 0;
+}
