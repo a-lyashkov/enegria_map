@@ -5,8 +5,7 @@
 #include <unistd.h>
 #include <termios.h>
 
-#include "map_sin.h"
-#include "map_regs.h"
+#include "map_int.h"
 
 enum MAP_SIN_CMD {
     READ_CMD  = 'r',
@@ -258,14 +257,16 @@ map_io_read(int fd, uint8_t *data, uint16_t addr, uint16_t size)
 }
 
 uint16_t fw_ver; // needs for conditional
-uint16_t ram_high; // maximal ram address
 
-static uint8_t *epprom;
-static bool epprom_valid = false;
+uint8_t *epprom;
+bool epprom_valid = false;
 
 int map_epprom_read(int fd)
 {
 	int rc = 0;
+
+	if (epprom_valid)
+		return 0;
 
 	if (epprom == NULL) {
 		epprom = malloc(EPROM_SIZE);
@@ -273,52 +274,11 @@ int map_epprom_read(int fd)
 	if (epprom == NULL)
 		return -ENOMEM;
 
-	epprom_valid = false;
 	rc = map_io_read(fd, epprom, EPROM_START, EPROM_SIZE);
 	if (rc < 0)
 		return rc;
 
 	epprom_valid = true;
-
-	return 0;
-}
-
-static char *_map_bat_str[] = {
-    "12V", "24V", "48V", "96V"
-};
-
-const char *map_bat_str(enum map_uac_bat bat)
-{
-	return _map_bat_str[bat];
-}
-
-static char *_map_pow_str[] = {
-"1.3kW", "1.5kW", "2kW", "3kW", "4.5kW", "6kW",
-"9kW", "12kW", "15kW", "18kW", "24kW", "36kW"
-};
-
-const char* map_pow_str(enum map_pow pow)
-{
-	return _map_pow_str[pow];
-}
-
-int map_hw_info(struct map_hw_info *info)
-{
-	if (!epprom_valid)
-		return -EINVAL;
-
-	info->hybrid	= epprom[MAP_HW_VER] & 0x80;
-	info->hw_ver	= epprom[MAP_HW_VER] & 0x3F;
-	fw_ver		=((epprom[MAP_FW_VER] & 0x1F) << 8) | (epprom[MAP_FW_VER] >> 5);
-	info->fw_ver	= fw_ver;
-
-	info->pow	= epprom[MAP_POW];
-	info->bat	= epprom[MAP_BAT_UAC];
-	ram_high	= epprom[MAP_RAM_HI] << 8 | epprom[MAP_RAM_LO];
-	info->ram_high	= ram_high;
-
-	info->serial	= epprom[MAP_SERIAL_0] | (epprom[MAP_SERIAL_1] << 8);
-	info->serial   |= (epprom[MAP_SERIAL_2] << 16) | (epprom[MAP_SERIAL_3] << 24);
 
 	return 0;
 }

@@ -21,12 +21,10 @@ int main(int argc, char *argv[])
 
     printf("port open OK, start process\n");
 
-    if (map_epprom_read(port) < 0) {
-	    printf("error reading from port\n");
+    if (map_hw_info(port, &info)<0) {
+	    printf("error reading EPPROM\n");
 	    goto end;
     }
-
-    map_hw_info(&info);
 
     printf("Map INFO\n");
     printf("\tdevice serial %#0x\n", info.serial);
