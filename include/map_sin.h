@@ -3,5 +3,6 @@
 
 #include "map_sin_rom.h"
 #include "map_sin_in.h"
+#include "map_sin_bat.h"
 
 #endif

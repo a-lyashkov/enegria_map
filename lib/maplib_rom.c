@@ -45,7 +45,7 @@ int map_hw_info(int fd, struct map_hw_info *info)
 
 	info->pow	= epprom[MAP_POW];
 	info->bat	= epprom[MAP_BAT_UAC];
-	info->ram_high	= epprom[MAP_RAM_HI] << 8 | epprom[MAP_RAM_LO];
+	info->ram_high	= conv_u16(epprom[MAP_RAM_HI], epprom[MAP_RAM_LO]);
 
 	info->serial	= epprom[MAP_SERIAL_0] | (epprom[MAP_SERIAL_1] << 8);
 	info->serial   |= (epprom[MAP_SERIAL_2] << 16) | (epprom[MAP_SERIAL_3] << 24);

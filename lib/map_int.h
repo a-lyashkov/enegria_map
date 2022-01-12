@@ -10,6 +10,12 @@
 /* XXX should from ROM */
 #define RAM_SIZE	0x3FF
 
+#define conv_u16(h,l)	(((h) << 8) + l)
+#define conv_ram_u16(h,l)	((map_ram[(h)] << 8) + map_ram[(l)])
+
+#define BIT(a)	(1 << (a))
+
+
 extern uint16_t fw_ver; // needs for conditional
 
 extern uint8_t *epprom;

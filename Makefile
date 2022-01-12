@@ -9,8 +9,10 @@ all:
 	gcc $(_CFLAGS) -c -o obj/maplib_ram.o lib/maplib_ram.c
 	gcc $(_CFLAGS) -c -o obj/hw_info.o src/hw_info.c
 	gcc $(_CFLAGS) -c -o obj/in_info.o src/in_info.c
+	gcc $(_CFLAGS) -c -o obj/bat_info.o src/bat_info.c
 	gcc $(_LDFLAGS) -o hw_info obj/hw_info.o $(_LIBOBJ)
 	gcc $(_LDFLAGS) -o in_info obj/in_info.o $(_LIBOBJ)
+	gcc $(_LDFLAGS) -o bat_info obj/bat_info.o $(_LIBOBJ)
 
 clean:
 	rm -f obj/*
