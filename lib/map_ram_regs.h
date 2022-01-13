@@ -30,6 +30,13 @@ enum MAP_RAM {
 	// POW High
 	MAP_PNET_H	= 0x057,
 	//
+	
+	// BMS related
+	// array of 32 elements each
+	MAP_UakbCell_L	= 0x080,
+	MAP_UakbCell_H	= 0x081,
+	MAP_TakbCell	= 0x0C0,
+	MAP_Q_Cell	= 0x0E0,
 };
 
 enum MAP_MODE {
